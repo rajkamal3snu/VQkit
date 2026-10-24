@@ -143,4 +143,4 @@ At the main menu, choose `[4] Smart command`, or type a recognized command direc
 [12] Generate NEB intermediate images
 
 
-For more information https://vqkit.com
+For more information www.vqkit.com
