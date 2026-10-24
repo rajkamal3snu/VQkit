@@ -1,0 +1,30 @@
+# Do not accidentally commit private source or build output
+src/
+tests/
+*.py
+*.pyc
+*.pyo
+*.c
+*.cpp
+*.html
+__pycache__/
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.log
+*.tar.gz
+*.zip
+# Reviewed release binaries should be attached to GitHub Releases,
+# not committed directly to the source tree.
+*.whl
+*.so
+*.pyd
+*.dll
