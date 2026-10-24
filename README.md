@@ -2,6 +2,8 @@
 
 **VASP and Quantum ESPRESSO Interface Kit**
 
+**Website:** [www.vqkit.com](https://www.vqkit.com)
+
 VQkit is a Python-based command-line toolkit for preparing simulation inputs and analyzing calculation outputs from **VASP** and **Quantum ESPRESSO**.
 
 ## Purpose
