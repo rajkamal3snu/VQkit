@@ -1,45 +1,146 @@
-# VQkit
+# VQkit v1.1
+> Build carefully. Analyze clearly. Discover confidently.
 
-**VASP and Quantum ESPRESSO Interface Kit**
+**About VQkit**
 
-**Website:** [www.vqkit.com](https://www.vqkit.com)
+**VQkit** is a unified command-line toolkit for **VASP** and **Quantum ESPRESSO**, designed to streamline computational materials science workflows by automating input preparation, structure conversion, electronic-structure and charge-density analysis, ab initio molecular dynamics (AIMD), nudged elastic band (NEB) calculations, and specialized analyses for batteries, catalysis, mechanical properties, and phonon-related descriptors.
 
-VQkit is a Python-based command-line toolkit for preparing simulation inputs and analyzing calculation outputs from **VASP** and **Quantum ESPRESSO**.
 
-## Purpose
+**Lead Developer:** RAJKAMAL Anand, PhD [1]
 
-VQkit brings common pre- and post-processing tasks into a unified interface to reduce repetitive manual operations and support reproducible first-principles workflows.
+**Contributors:** Dr. Prakash Govindaraj [2], Seunghwan kwon [1], Prof. Gun Jin Yun [1], Prof. Hern Kim [2]
 
-## Capabilities
+**Affiliation:** [1] Seoul National University, Gwanak-gu. [2] Myongji University, Yongin-si. 
 
-- Input preparation and structure handling
-- Convergence analysis
-- Electronic band structure, density of states, and projected density of states
-- Electronic-property and charge-density analysis
-- Selected workflows for materials simulation and application-focused analysis
 
-Available capabilities and supported file formats depend on the release.
 
 ## Installation
 
-**No verified public binary package has been published in this repository yet.**
+VQkit requires Python 3.9 or newer.
 
-Installers and platform-specific binary wheels will be made available under [Releases](../../releases) after compilation and validation. Do not use unverified third-party downloads.
+```bash
+cd VQkit_v1.1_Software_Package
+python3 -m venv vqkit_env
+source vqkit_env/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install --upgrade installable/vqkit-1.1-py3-none-any.whl
+hash -r
+vqkit version
+vqkit
+```
 
-## Documentation
+Expected version:
 
-Public usage guides and examples will be added as they are checked for source-code and sensitive-data exposure.
+```text
+VQkit 1.1
 
-## Source code and distribution
+## Windows PowerShell installation
 
-VQkit development takes place in a **separate private repository**. This repository is intended for public documentation and carefully reviewed distribution artifacts. It does not include the private Python implementation source.
+On Windows, use `python` or the Windows Python launcher `py`. The command `python3` is not always
+registered on Windows.
 
-Compiled software can make direct source access more difficult, but it does not guarantee resistance to reverse engineering. Licensing terms for any distributed binaries should be reviewed independently of the repository's documentation license.
+First check which command is available:
 
-## Citation
+```powershell
+python --version
+```
 
-Citation information will be supplied with a verified software release and accompanying publication details.
+If that is not recognized, try:
 
-## Status
+```powershell
+py --version
+```
 
-Public distribution repository initialized; no binary release is available yet.
+Create and activate a virtual environment with one of these forms:
+
+```powershell
+python -m venv vqkit_env
+.\vqkit_env\Scripts\Activate.ps1
+```
+
+or:
+
+```powershell
+py -m venv vqkit_env
+.\vqkit_env\Scripts\Activate.ps1
+```
+
+Then install VQkit:
+
+```powershell
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install --upgrade .\installable\vqkit-1.1-py3-none-any.whl
+vqkit version
+vqkit
+```
+
+Expected version:
+
+```text
+VQkit 1.1 For more information https://vqkit.com
+```
+```Main Interface text
+========================================================================================
+                                        V Q k i t
+                         UNIFIED VASP + QUANTUM ESPRESSO TOOLKIT
+----------------------------------------------------------------------------------------
+                           Lead Developer : RAJKAMAL Anand, PhD
+                                   Version        : 1.1
+----------------------------------------------------------------------------------------
+                     Build carefully. Analyze clearly. Discover confidently.
+
+
+ What would you like to do?
+
+   [1] Pre-processing
+       Prepare a DFT calculation
+
+   [2] Post-processing
+       Analyze a DFT calculation
+
+   [3] Change working directory
+       Switch the active folder for this VQkit session
+
+   [0] Exit
+
+
+## Smart Command Interface
+
+VQkit 1.1 adds an offline Smart Command Interface. The numbered menus remain available, but users
+can jump directly to common workflows by typing requests such as eg., generate kpoints,
+convert cif, freeze, neb, gruneisen, aimd ect.
+
+The parser is deterministic and local: no internet connection, API key, or external AI service
+is required. Smart commands dispatch to the existing tested VQkit workflows rather than generating
+scientific inputs independently.
+At the main menu, choose `[4] Smart command`, or type a recognized command directly instead of a menu number.
+
+
+## Current preprocessing menu
+
+===== CALCULATION SETUP =====
+[1]  Create a new calculation
+[2]  Convert CIF to input file
+[3]  Convert output file to input
+
+===== STRUCTURE EDITING =====
+[4]  Freeze / fix atoms
+[5]  Delete atoms
+
+===== VALIDATION =====
+[6]  Pre-flight calculation check
+
+===== PSEUDOPOTENTIALS =====
+[7]  Create POTCAR from POSCAR
+[8]  Pseudopotential library setup
+
+===== RECIPROCAL SPACE / CONVERGENCE =====
+[9]  Generate band-structure K-path
+[10] K-points
+[11] Convergence tests
+
+===== REACTION-PATH PREPARATION =====
+[12] Generate NEB intermediate images
+
+
+For more information https://vqkit.com
