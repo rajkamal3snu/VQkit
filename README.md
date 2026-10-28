@@ -50,11 +50,8 @@ The example assumes the wheel is in the current directory. These commands do **n
 
 ## Orbital occupancy: Fermi reference
 
-For raw VASP DOSCAR energies, `E_aligned = E_DOSCAR - E_F(DOSCAR)`. **Do not shift an already Fermi-aligned exported PDOS a second time.**
-
-For QE, the SCF Fermi energy must be referenced consistently with the PDOS-generating calculation. Avoid re-shifting files already relative to the Fermi level.
-
-For the independently checked example with 49 atoms, the raw VASP DOSCAR gives `E_F = -4.10363265 eV`; its once-aligned atom-49 PDOS energy axis matches the previously exported PDOS within approximately `2.65e-6 eV`. This verifies the energy alignment for this example, **not** a complete scientific validation of all spin channels, orbital projections, or QE calculations.
+For raw VASP DOSCAR energies, `E_aligned = E_DOSCAR - E_F(DOSCAR)`. 
+For QE, the SCF Fermi energy must be referenced consistently with the PDOS-generating calculation. 
 
 ## Development and source protection
 
