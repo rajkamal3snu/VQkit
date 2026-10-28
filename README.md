@@ -1,146 +1,63 @@
-# VQkit v1.1
+# VQkit v1.2
+
 > Build carefully. Analyze clearly. Discover confidently.
 
-**About VQkit**
+**VQkit (VASP and Quantum ESPRESSO Interface Kit)** is a command-line pre- and post-processing toolkit for VASP and Quantum ESPRESSO. It supports structure and input preparation, electronic-structure and charge-density analysis, AIMD and NEB workflows, and application-specific materials analysis.
 
-**VQkit** is a unified command-line toolkit for **VASP** and **Quantum ESPRESSO**, designed to streamline computational materials science workflows by automating input preparation, structure conversion, electronic-structure and charge-density analysis, ab initio molecular dynamics (AIMD), nudged elastic band (NEB) calculations, and specialized analyses for batteries, catalysis, mechanical properties, and phonon-related descriptors.
+**Lead developer:** RAJKAMAL Anand, PhD
 
+**Contributors:** Prakash Govindaraj, Seunghwan Kwon, Gun Jin Yun, Hern Kim.
 
-**Lead Developer:** RAJKAMAL Anand, PhD [1]
+## What's new in v1.2
 
-**Contributors:** Dr. Prakash Govindaraj [2], Seunghwan kwon [1], Prof. Gun Jin Yun [1], Prof. Hern Kim [2]
+**Orbital Occupancy Analysis** is available as **Post-processing → Electronic Structure → [7] Orbital occupancy**.
 
-**Affiliation:** [1] Seoul National University, Gwanak-gu. [2] Myongji University, Yongin-si. 
+- Atom-by-atom projected occupancy output for available `s`, `px`, `py`, `pz`, `ptot`, `dz2`, `dx2-y2`, `dxy`, `dyz`, `dxz`, and `dtot` channels.
+- Spin-resolved projected occupancies when the corresponding DOS data are available.
+- CSV output with one row per atom and `NA` for unavailable projections.
+- VASP: use the Fermi energy recorded in the **original DOSCAR** and align the raw DOS energy axis exactly once.
+- Quantum ESPRESSO: read the Fermi energy from `scf.out` and align compatible `projwfc.x` PDOS energies before integration.
 
+The integration is performed over occupied orbital-projected DOS up to the Fermi level. These values are *projected occupancies*, not unique atomic electron counts; they depend on projection conventions and calculation settings.
 
+## Installation from a locally downloaded wheel
 
-## Installation
+Use a **wheel built for your platform**. The universal Python wheel includes Python source files. Compiled Linux wheels are not compatible with native Windows PowerShell.
 
-VQkit requires Python 3.9 or newer.
-
-```bash
-cd VQkit_v1.1_Software_Package
-python3 -m venv vqkit_env
-source vqkit_env/bin/activate
-python -m pip install --upgrade pip setuptools wheel
-python -m pip install --upgrade installable/vqkit-1.1-py3-none-any.whl
-hash -r
-vqkit version
-vqkit
-```
-
-Expected version:
-
-```text
-VQkit 1.1
-
-## Windows PowerShell installation
-
-On Windows, use `python` or the Windows Python launcher `py`. The command `python3` is not always
-registered on Windows.
-
-First check which command is available:
-
-```powershell
-python --version
-```
-
-If that is not recognized, try:
-
-```powershell
-py --version
-```
-
-Create and activate a virtual environment with one of these forms:
-
-```powershell
-python -m venv vqkit_env
-.\vqkit_env\Scripts\Activate.ps1
-```
-
-or:
+### Windows PowerShell — universal Python wheel
 
 ```powershell
 py -m venv vqkit_env
 .\vqkit_env\Scripts\Activate.ps1
-```
-
-Then install VQkit:
-
-```powershell
-python -m pip install --upgrade pip setuptools wheel
-python -m pip install --upgrade .\installable\vqkit-1.1-py3-none-any.whl
+python -m pip install --upgrade pip
+python -m pip install .\vqkit-1.2-py3-none-any.whl
 vqkit version
 vqkit
 ```
 
-Expected version:
+### Linux — universal Python wheel
 
-```text
-VQkit 1.1 For more information https://vqkit.com
+```bash
+python3 -m venv vqkit_env
+source vqkit_env/bin/activate
+python -m pip install --upgrade pip
+python -m pip install ./vqkit-1.2-py3-none-any.whl
+vqkit version
+vqkit
 ```
-```Main Interface text
-========================================================================================
-                                        V Q k i t
-                         UNIFIED VASP + QUANTUM ESPRESSO TOOLKIT
-----------------------------------------------------------------------------------------
-                           Lead Developer : RAJKAMAL Anand, PhD
-                                   Version        : 1.1
-----------------------------------------------------------------------------------------
-                     Build carefully. Analyze clearly. Discover confidently.
 
+The example assumes the wheel is in the current directory. These commands do **not** download a wheel from GitHub. See the project distribution channel for release artifacts.
 
- What would you like to do?
+## Orbital occupancy: Fermi reference
 
-   [1] Pre-processing
-       Prepare a DFT calculation
+For raw VASP DOSCAR energies, `E_aligned = E_DOSCAR - E_F(DOSCAR)`. **Do not shift an already Fermi-aligned exported PDOS a second time.**
 
-   [2] Post-processing
-       Analyze a DFT calculation
+For QE, the SCF Fermi energy must be referenced consistently with the PDOS-generating calculation. Avoid re-shifting files already relative to the Fermi level.
 
-   [3] Change working directory
-       Switch the active folder for this VQkit session
+For the independently checked example with 49 atoms, the raw VASP DOSCAR gives `E_F = -4.10363265 eV`; its once-aligned atom-49 PDOS energy axis matches the previously exported PDOS within approximately `2.65e-6 eV`. This verifies the energy alignment for this example, **not** a complete scientific validation of all spin channels, orbital projections, or QE calculations.
 
-   [0] Exit
+## Development and source protection
 
+The source-code developer package is intended for private storage. The `py3-none-any` wheel contains readable Python modules; distributing it does not hide the source. The compiled Linux wheel is a separate, platform-specific build.
 
-## Smart Command Interface
-
-VQkit 1.1 adds an offline Smart Command Interface. The numbered menus remain available, but users
-can jump directly to common workflows by typing requests such as eg., generate kpoints,
-convert cif, freeze, neb, gruneisen, aimd ect.
-
-The parser is deterministic and local: no internet connection, API key, or external AI service
-is required. Smart commands dispatch to the existing tested VQkit workflows rather than generating
-scientific inputs independently.
-At the main menu, choose `[4] Smart command`, or type a recognized command directly instead of a menu number.
-
-
-## Current preprocessing menu
-
-===== CALCULATION SETUP =====
-[1]  Create a new calculation
-[2]  Convert CIF to input file
-[3]  Convert output file to input
-
-===== STRUCTURE EDITING =====
-[4]  Freeze / fix atoms
-[5]  Delete atoms
-
-===== VALIDATION =====
-[6]  Pre-flight calculation check
-
-===== PSEUDOPOTENTIALS =====
-[7]  Create POTCAR from POSCAR
-[8]  Pseudopotential library setup
-
-===== RECIPROCAL SPACE / CONVERGENCE =====
-[9]  Generate band-structure K-path
-[10] K-points
-[11] Convergence tests
-
-===== REACTION-PATH PREPARATION =====
-[12] Generate NEB intermediate images
-
-
-For more information www.vqkit.com
+Project website: https://vqkit.com
