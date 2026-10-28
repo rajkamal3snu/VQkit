@@ -46,8 +46,7 @@ vqkit version
 vqkit
 ```
 
-The example assumes the wheel is in the current directory. These commands do **not** download a wheel from GitHub. See the project distribution channel for release artifacts.
-
+The example assumes the wheel is in the current directory.
 ## Orbital occupancy: Fermi reference
 
 For raw VASP DOSCAR energies, `E_aligned = E_DOSCAR - E_F(DOSCAR)`. 
