@@ -6,7 +6,7 @@
 
 **Lead developer:** RAJKAMAL Anand, PhD
 
-**Contributors:** Prakash Govindaraj, Seunghwan Kwon, Gun Jin Yun, Hern Kim.
+**Contributors:** Dr. Prakash Govindaraj, Seunghwan Kwon, Prof. Gun Jin Yun, Prof. Hern Kim.
 
 ## What's new in v1.2
 
