@@ -1,3 +1,76 @@
+## What's New in VQkit v1.3
+
+VQkit v1.3 introduces improvements to phonon post-processing, with a focus on **Grüneisen parameter analysis, numerical stability, and working-directory management** for VASP and Quantum ESPRESSO workflows.
+
+### 1. Acoustic Grüneisen Parameter Averaging
+
+- Calculates and reports RMS Grüneisen parameters for the TA, TA′, and LA acoustic branches.
+- **New:** Automatically calculates the arithmetic average of the three acoustic RMS values.
+- Displays the average immediately after the individual branch results.
+- Saves the results to `VQkit_GRUNEISEN_ACOUSTIC_RMS.txt`.
+
+Example output:
+
+```text
+Phonon branches: 24
+
+TA     6.017555045  (N=357)
+TA'    4.728381344  (N=357)
+LA    19.150508066  (N=357)
+
+Average acoustic Gruneisen = 9.965481485
+```
+
+### 2. Improved Grüneisen Parameter Numerical Stability
+
+- Excludes numerically unstable acoustic modes at the Γ point.
+- Filters near-zero-frequency and invalid modes.
+- Applies a configurable extreme-value threshold, with a default of |γ| > 20.
+- Preserves original input files.
+- Generates filtered results and reports excluded data points with their corresponding reasons.
+
+### 3. Working-Directory Improvements
+
+- Supports absolute and relative paths.
+- Accepts Windows paths with or without quotation marks.
+- Handles directory names containing spaces.
+- Improves file-location error messages during phonon analysis.
+
+### 4. Scientific Considerations
+
+The reported acoustic average is the arithmetic mean of the three branch-resolved RMS Grüneisen parameters, not the signed thermodynamic Grüneisen parameter.
+
+The numerical filtering threshold is intended to reduce artifacts caused by near-zero phonon frequencies. Genuine soft phonon modes and unusually large Grüneisen parameters require additional physical validation.
+
+### Installation
+
+Install the VQkit v1.3 universal Python wheel:
+
+```bash
+python -m pip install --upgrade --force-reinstall vqkit-1.3-py3-none-any.whl
+```
+
+Verify the installation:
+
+```bash
+vqkit version
+```
+
+Expected output:
+
+```text
+VQkit 1.3
+```
+
+### Compatibility
+
+- VASP and Quantum ESPRESSO post-processing workflows
+- Windows and Linux, subject to Python dependency compatibility
+- Universal Python wheel (`py3-none-any`)
+
+**Note:** The universal wheel contains Python source code and is not a source-protected distribution.
+
+
 
 ## What's new in v1.2
 
