@@ -1,5 +1,4 @@
-# VQkit v1.2
-
+# VQkit v1.2.1
 > Build carefully. Analyze clearly. Discover confidently.
 
 **VQkit (VASP and Quantum ESPRESSO Interface Kit)** is a command-line pre- and post-processing toolkit for VASP and Quantum ESPRESSO. It supports structure and input preparation, electronic-structure and charge-density analysis, AIMD and NEB workflows, and application-specific materials analysis.
@@ -7,6 +6,32 @@
 **Lead developer:** RAJKAMAL Anand, PhD
 
 **Contributors:** Dr. Prakash Govindaraj, Seunghwan Kwon, Prof. Gun Jin Yun, Prof. Hern Kim.
+
+## What's new in v1.2.1 — Grüneisen numerical stability
+
+VQkit **1.2.1** is a bug-fix update to v1.2. It adds non-destructive numerical filtering for Grüneisen parameters from `gruneisen_band.dat` and two-volume phonon `band.dat` workflows.
+
+- Excludes ill-conditioned acoustic Γ-point values where identifiable.
+- Masks near-zero/invalid frequencies (default minimum **0.1 THz**) and flags `|gamma| > 20` (configurable).
+- Keeps original inputs unchanged and records excluded modes with reasons.
+- Writes filtered data, an excluded-point CSV, and a summary; the acoustic RMS uses retained values.
+- The ±20 threshold is a numerical quality-control setting, **not** a universal physical bound. Genuine soft-mode values and branch crossings require independent scientific review.
+
+**Linux source-protected wheel:** `vqkit-1.2.1-cp313-cp313-linux_x86_64.whl` (CPython 3.13 on Linux x86-64).
+
+```bash
+python3.13 -m venv vqkit_env
+source vqkit_env/bin/activate
+python -m pip install ./vqkit-1.2.1-cp313-cp313-linux_x86_64.whl
+vqkit version
+vqkit phonon-props gruneisen --band gruneisen_band.dat --max-abs-gamma 20 --min-frequency-thz 0.1
+```
+
+The universal wheel `vqkit-1.2.1-py3-none-any.whl` includes readable Python source, so **do not publicly distribute it if source protection is required**. The compiled Linux wheel cannot install natively on Windows.
+
+**Validation status:** synthetic regression tests, CLI tests and compiled-wheel install checks passed; real-material VASP/QE phonon benchmark validation and branch matching remain pending.
+
+See [v1.2.1 change notes](RELEASE_NOTES_v1.2.1.md) for details. Earlier v1.1 and v1.2 releases are retained.
 
 ## What's new in v1.2
 
